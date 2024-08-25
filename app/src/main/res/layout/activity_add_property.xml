@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="13dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <!-- Back Button -->
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/left"
+            android:contentDescription="back"
+            android:layout_marginTop="10dp"
+            android:padding="8dp"
+            android:layout_gravity="start" />
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/PropertyForm_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Property Form"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:layout_gravity="center"
+            android:padding="8dp" />
+
+        <!-- Select Contact Button -->
+        <LinearLayout
+            android:id="@+id/selectContactButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/border_layout"
+            android:clickable="true"
+            android:padding="16dp"
+            android:gravity="center_vertical"
+            android:layout_marginVertical="8dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/plus"
+                android:contentDescription="plusSign"
+                app:tint="@color/rosepink"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Contact"
+                android:textColor="@color/rosepink"
+                android:textSize="16sp"
+                android:layout_marginStart="20dp" />
+        </LinearLayout>
+
+        <!-- Purpose -->
+        <TextView
+            android:id="@+id/purposeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Purpose*"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:layout_marginTop="16dp" />
+
+        <!-- Purpose Options -->
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginVertical="8dp">
+
+            <RadioButton
+                android:id="@+id/saleOption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sale"
+                android:textSize="13sp"
+                android:textColor="@android:color/black"
+                android:buttonTint="@color/rosepink"
+                android:background="?attr/selectableItemBackground" />
+
+            <RadioButton
+                android:id="@+id/purchaseOption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Purchase"
+                android:textSize="13sp"
+                android:textColor="@android:color/black"
+                android:buttonTint="@color/rosepink"
+                android:layout_marginStart="8dp"
+                android:background="?attr/selectableItemBackground" />
+
+            <RadioButton
+                android:id="@+id/tenantOption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tenant"
+                android:textSize="13sp"
+                android:textColor="@android:color/black"
+                android:buttonTint="@color/rosepink"
+                android:layout_marginStart="8dp"
+                android:background="?attr/selectableItemBackground" />
+
+            <RadioButton
+                android:id="@+id/rentOutOption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rent Out"
+                android:textSize="13sp"
+                android:textColor="@android:color/black"
+                android:buttonTint="@color/rosepink"
+                android:layout_marginStart="8dp"
+                android:background="?attr/selectableItemBackground" />
+        </RadioGroup>
+
+        <!-- Dropdown for Residential Plot -->
+        <TextView
+            android:id="@+id/propertyTypeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Residential Plot"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:layout_marginTop="8dp" />
+
+        <Spinner
+            android:id="@+id/propertyTypeSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/dropdown_background"
+            android:layout_marginVertical="8dp" />
+
+        <!-- Dropdown for Area (Marla) -->
+        <TextView
+            android:id="@+id/areaLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Area*"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:layout_marginTop="8dp" />
+
+        <Spinner
+            android:id="@+id/areaSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/dropdown_background"
+            android:layout_marginVertical="8dp" />
+
+        <!-- Select Location Button -->
+        <LinearLayout
+            android:id="@+id/selectLocationButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:orientation="horizontal"
+            android:background="@drawable/border_layout"
+            android:padding="16dp"
+            android:gravity="center_vertical"
+            android:layout_marginVertical="8dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/gps"
+                app:tint="@color/rosepink"
+                android:contentDescription="location" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Location"
+                android:textColor="#FF0078"
+                android:textSize="16sp"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+
+        <!-- Other fields -->
+        <EditText
+            android:id="@+id/estimatedDemand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Estimated Demand (Price) (Optional)"
+            android:layout_marginTop="16dp"
+            android:textColorHint="@android:color/darker_gray"
+           android:textColor="@color/black"
+            android:textSize="14sp"
+            app:tint="@color/rosepink"
+            />
+
+        <EditText
+            android:id="@+id/note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Note (Optional)"
+            android:textColorHint="@android:color/darker_gray"
+            android:textColor="@color/black"
+            android:layout_marginTop="8dp"
+            android:textSize="14sp"
+             />
+
+        <TextView
+            android:id="@+id/addressDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:clickable="true"
+            android:layout_marginTop="8dp"
+            android:text="Addess details (Optional)"
+            android:textSize="13sp"
+           />
+        <EditText
+            android:id="@+id/completeAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Complete Address (Optional)"
+            android:layout_marginTop="16dp"
+            android:textColorHint="@android:color/darker_gray"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            app:tint="@color/rosepink"
+            />
+
+        <EditText
+            android:id="@+id/plotno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Plot No (Optional)"
+            android:textColorHint="@android:color/darker_gray"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            />
+        <EditText
+            android:id="@+id/block"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Block (Optional)"
+            android:layout_marginTop="16dp"
+            android:textColorHint="@android:color/darker_gray"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            app:tint="@color/rosepink"
+            />
+
+        <EditText
+            android:id="@+id/phase"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Phase (Optional)"
+            android:textColorHint="@android:color/darker_gray"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            />
+
+
+        <!-- Next Button -->
+        <Button
+            android:id="@+id/nextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/rosepink"
+            android:layout_marginTop="24dp"
+             />
+    </LinearLayout>
+</ScrollView>

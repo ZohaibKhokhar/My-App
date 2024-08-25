@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/account"
+        android:title="Profile" />
+
+    <item
+        android:id="@+id/nav_backup"
+        android:icon="@drawable/backup"
+        android:title="Backup" />
+    <item
+        android:id="@+id/nav_settings"
+        android:icon="@drawable/setting"
+        android:title="Settings" />
+
+    <item
+        android:id="@+id/nav_share"
+        android:icon="@drawable/share"
+        android:title="Share with Friends" />
+    <item
+        android:id="@+id/nav_contactUs"
+        android:icon="@drawable/mail"
+        android:title="Contact Us" />
+    <item
+        android:id="@+id/nav_login"
+        android:icon="@drawable/google"
+        android:title="Login with Google" />
+
+    <!-- Add more menu items as needed -->
+</menu>

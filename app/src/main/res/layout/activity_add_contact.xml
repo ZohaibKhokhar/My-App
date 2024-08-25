@@ -1,0 +1,205 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/saveContact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_default"
+            android:clickable="true"
+            android:padding="16dp"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="end"
+            android:backgroundTint="@color/rosepink"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:layout_marginEnd="16dp"
+                android:adjustViewBounds="true"
+                android:background="@color/rosepink"
+                android:maxWidth="14dp"
+                android:maxHeight="13dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/tick"
+                app:tint="@color/white" />
+
+            <TextView
+                android:id="@+id/tvSearchCaption"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textSize="11sp"
+                android:paddingRight="30dp"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:text="Save" />
+        </LinearLayout>
+
+        <!-- Choose From Mobile Contacts Button -->
+        <Button
+            android:id="@+id/btn_choose_contacts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Choose From Mobile Contacts"
+            android:drawablePadding="8dp"
+            android:textColor="@color/rosepink"
+            android:backgroundTint="@android:color/black" />
+
+        <!-- Name Input -->
+        <EditText
+            android:id="@+id/edit_text_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Name*"
+            android:backgroundTint="@color/rosepink"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/darker_gray"
+            android:inputType="textPersonName" />
+
+        <!-- Mobile Number Input -->
+        <EditText
+            android:id="@+id/edit_text_mobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/rosepink"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/darker_gray"
+            android:layout_marginTop="8dp"
+            android:hint="Mobile No*"
+            android:inputType="phone" />
+
+        <!-- Address Input -->
+        <EditText
+            android:id="@+id/edit_text_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/rosepink"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/darker_gray"
+            android:layout_marginTop="8dp"
+            android:hint="Address (Optional)"
+            android:inputType="textPostalAddress" />
+
+        <!-- More Details Header -->
+        <TextView
+            android:id="@+id/tv_more_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="More Details (Optional)"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <!-- Details Container -->
+        <LinearLayout
+            android:id="@+id/details_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"> <!-- Initially hidden -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- More Details Section -->
+                <Switch
+                    android:id="@+id/switch_dealer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:foregroundTint="@android:color/black"
+                    android:buttonTint="@android:color/darker_gray"
+                    android:backgroundTint="@android:color/darker_gray"
+                    android:layout_gravity="end"
+                    android:layout_weight="1"
+                    android:textColor="@android:color/black"
+                    android:text="Dealer" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- More Details Section -->
+                <Switch
+                    android:id="@+id/switch_investor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:layout_gravity="end"
+                    android:buttonTint="@android:color/black"
+                    android:backgroundTint="@android:color/black"
+                    android:layout_weight="1"
+                    android:text="Investor" />
+            </LinearLayout>
+
+            <!-- Company Name Input -->
+            <EditText
+                android:id="@+id/edit_text_company"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/rosepink"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="8dp"
+                android:textColorHint="@android:color/darker_gray"
+                android:hint="Company / Office Name (Optional)"
+                android:inputType="text" />
+
+            <!-- Person Details / Notes Input -->
+            <EditText
+                android:id="@+id/edit_text_notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/rosepink"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/darker_gray"
+                android:layout_marginTop="8dp"
+                android:hint="Person Details / Notes (Optional)"
+                android:inputType="textMultiLine" />
+
+            <!-- Email Input -->
+            <EditText
+                android:id="@+id/edit_text_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/rosepink"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/darker_gray"
+                android:layout_marginTop="8dp"
+                android:hint="Email (Optional)"
+                android:inputType="textEmailAddress" />
+
+            <!-- Website Input -->
+            <EditText
+                android:id="@+id/edit_text_website"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/rosepink"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/darker_gray"
+                android:layout_marginTop="8dp"
+                android:hint="Website (Optional)"
+                android:inputType="textUri" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

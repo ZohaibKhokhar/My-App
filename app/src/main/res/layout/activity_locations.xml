@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/white"
+    android:padding="16dp">
+
+    <!-- Back Button -->
+    <ImageView
+        android:id="@+id/backButton"
+        android:layout_width="30dp"
+        android:layout_height="35dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/left" />
+
+    <!-- Search Icon -->
+    <ImageView
+        android:id="@+id/searchButton"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/search" />
+
+    <!-- Contacts Title -->
+    <TextView
+        android:id="@+id/locationsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Locations(0)"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <!-- No Contact Available Text -->
+    <TextView
+        android:id="@+id/noLocationsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/locationsTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:text="No Locations Available"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:id="@+id/addlocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:background="@android:drawable/btn_default"
+        android:gravity="end"
+        android:clickable="true"
+        android:padding="16dp"
+        android:layout_gravity="end"
+        android:backgroundTint="@color/rosepink"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_marginEnd="16dp"
+            android:adjustViewBounds="true"
+            android:background="@color/rosepink"
+            android:maxHeight="18dp"
+            android:maxWidth="18dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/gps"
+            app:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/locationCaption"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textSize="15sp"
+            android:paddingRight="10dp"
+            android:textColor="@color/white"
+            android:fontFamily="Roboto"
+            android:gravity="center"
+            android:text="Add New Location" />
+    </LinearLayout>
+
+
+</RelativeLayout>

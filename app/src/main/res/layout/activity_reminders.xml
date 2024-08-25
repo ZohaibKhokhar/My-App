@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:padding="16dp">
+
+    <!-- Back Button -->
+    <ImageView
+        android:id="@+id/backButton"
+        android:layout_width="30dp"
+        android:layout_height="35dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/left" />
+
+    <!-- Search Icon -->
+    <ImageView
+        android:id="@+id/searchButton"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/search" />
+
+    <!-- Contacts Title -->
+    <TextView
+        android:id="@+id/remindersTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Reminders(0)"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+    <!-- Tabs (All, Dealer, Investor) -->
+    <LinearLayout
+        android:id="@+id/tabs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/remindersTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+        <!-- No Contact Available Text -->
+        <TextView
+            android:id="@+id/upcoming"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp"
+            android:text="Up Coming"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="16sp" />
+
+        <!-- No Contact Available Text -->
+        <TextView
+            android:id="@+id/expired"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_alignRight="@+id/upcoming"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp"
+            android:text="Expired"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+    <!-- Add New Contact Button -->
+
+
+    <LinearLayout
+        android:id="@+id/addreminder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:background="@android:drawable/btn_default"
+        android:gravity="end"
+        android:clickable="true"
+        android:padding="16dp"
+        android:layout_gravity="end"
+        android:backgroundTint="@color/rosepink"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_marginEnd="16dp"
+            android:adjustViewBounds="true"
+            android:background="@color/rosepink"
+            android:maxHeight="18dp"
+            android:maxWidth="18dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/reminders"
+            app:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/remindersCaption"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textSize="15sp"
+            android:paddingRight="10dp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:text="Add New Reminder" />
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,13 @@
+<!-- res/drawable/dropdown_background.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background color -->
+    <solid android:color="@android:color/white" />
+
+    <!-- Border color and width -->
+    <stroke
+        android:width="1dp"
+        android:color="@color/rosepink" /> <!-- Change this color to your desired border color -->
+
+    <!-- Optional: Adjust the corner radius for rounded corners -->
+    <corners android:radius="4dp" />
+</shape>

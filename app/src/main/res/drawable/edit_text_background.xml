@@ -1,0 +1,23 @@
+<!-- res/drawable/edit_text_background.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Shadow Layer -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#f2f2f2" /> <!-- Light gray shadow color -->
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+
+    <!-- Main Background Layer -->
+    <item android:left="1dp" android:right="1dp" android:top="1dp" android:bottom="1dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/white" /> <!-- White background color -->
+            <stroke
+                android:width="1dp"
+                android:color="@color/rosepink" /> <!-- Border color -->
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+
+</layer-list>

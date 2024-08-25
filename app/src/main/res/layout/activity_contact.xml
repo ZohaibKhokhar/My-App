@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/white"
+    android:padding="12dp">
+
+    <!-- Back Button -->
+    <ImageView
+        android:id="@+id/backButton"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/left" />
+
+    <!-- Search Icon -->
+    <ImageView
+        android:id="@+id/searchButton"
+        android:layout_width="21dp"
+        android:layout_height="21dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/search" />
+
+    <!-- Contacts Title -->
+    <TextView
+        android:id="@+id/contactsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Contacts"
+        android:textColor="@android:color/black"
+        android:textSize="21sp"
+        />
+
+    <!-- Tabs (All, Dealer, Investor) -->
+    <LinearLayout
+        android:id="@+id/tabs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contactsTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tabAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="All(0)"
+            android:textColor="@color/rosepink"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tabDealer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Dealer(0)"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tabInvestor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textColor="@android:color/darker_gray"
+            android:text="Investor (0)"
+            android:textSize="13sp" />
+
+
+    </LinearLayout>
+
+    <!-- No Contact Available Text -->
+    <TextView
+        android:id="@+id/noContactText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tabs"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:text="No Contact Available"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="16sp" />
+
+    <ListView
+        android:id="@+id/contactsList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tabs"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/rosepink"
+        app:tint="@color/rosepink"
+        android:divider="@android:color/darker_gray"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginBottom="70dp"
+        android:dividerHeight="1dp" />
+
+
+    <LinearLayout
+        android:id="@+id/addContactsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:background="@android:drawable/btn_default"
+        android:gravity="end"
+        android:clickable="true"
+        android:padding="16dp"
+        android:layout_gravity="end"
+        android:backgroundTint="@color/rosepink"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_marginEnd="16dp"
+            android:adjustViewBounds="true"
+            android:background="@color/rosepink"
+            android:maxHeight="18dp"
+            android:maxWidth="18dp"            android:scaleType="fitCenter"
+            android:src="@drawable/addcontact"
+            app:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/addContactsCaption"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textSize="15sp"
+            android:paddingRight="10dp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:text="Add New Contact" />
+    </LinearLayout>
+</RelativeLayout>
