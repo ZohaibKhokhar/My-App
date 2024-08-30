@@ -9,5 +9,5 @@
         android:color="@color/rosepink" />
 
     <!-- Optional: Adjust the corner radius for rounded corners -->
-    <corners android:radius="8dp" />
+    <corners android:radius="3dp" />
 </shape>

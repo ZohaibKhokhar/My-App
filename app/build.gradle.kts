@@ -46,9 +46,20 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
+    implementation (libs.logging.interceptor)
+
+
+
+
+
     // Volley for networking
-    implementation("com.android.volley:volley:1.2.1")
+    implementation(libs.volley)
 
     // Gson for JSON parsing
-    implementation("com.google.code.gson:gson:2.8.8")
+    implementation(libs.gson)
+
+
 }

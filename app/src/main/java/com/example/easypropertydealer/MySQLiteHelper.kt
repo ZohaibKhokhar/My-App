@@ -34,23 +34,47 @@ class MySQLiteHelper(
                 "$EMAIL_COL TEXT, " +
                 "$WEBSITE_COL TEXT)")
 
+        // Location table query
+        val createLocationTableQuery = ("CREATE TABLE $LOCATION_TABLE_NAME ("
+                + "$LOCATION_ID_COL INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "$COUNTRY_COL TEXT, "
+                + "$STATE_COL TEXT, "
+                + "$CITY_COL TEXT, "
+                + "$LOCATION_NAME_COL TEXT)")
+
         db.execSQL(createNotesTableQuery)
         db.execSQL(createContactsTableQuery)
+        db.execSQL(createLocationTableQuery)
     }
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        if (oldVersion < 2) {
-            // Add the new creation_date column to the notes_table
-            db.execSQL("ALTER TABLE $NOTES_TABLE_NAME ADD COLUMN $CREATION_DATE_COL TEXT")
-        }
-
         if (oldVersion < newVersion) {
-            // If upgrading from any older version, recreate the tables
+            // Drop tables that might not exist in older versions
             db.execSQL("DROP TABLE IF EXISTS $NOTES_TABLE_NAME")
             db.execSQL("DROP TABLE IF EXISTS $CONTACTS_TABLE_NAME")
+
+            // Create tables again
             onCreate(db)
         }
-    }
 
+        // Check if the Location table exists, if not, create it
+        val cursor = db.rawQuery(
+            "SELECT name FROM sqlite_master WHERE type='table' AND name='$LOCATION_TABLE_NAME'",
+            null
+        )
+        if (cursor.count == 0) {
+            cursor.close()
+            // Location table does not exist, create it
+            val createLocationTableQuery = ("CREATE TABLE $LOCATION_TABLE_NAME ("
+                    + "$LOCATION_ID_COL INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + "$COUNTRY_COL TEXT, "
+                    + "$STATE_COL TEXT, "
+                    + "$CITY_COL TEXT, "
+                    + "$LOCATION_NAME_COL TEXT)")
+            db.execSQL(createLocationTableQuery)
+        } else {
+            cursor.close()
+        }
+    }
 
     //insert method of Contact table
     fun insertContact(
@@ -228,11 +252,69 @@ class MySQLiteHelper(
         db.close()
         return result
     }
+    // Insert method for Location table
+    fun insertLocation(location: Location): Long {
+        val db = this.writableDatabase
+        val values = ContentValues().apply {
+            put(COUNTRY_COL, location.country)
+            put(STATE_COL, location.state)
+            put(CITY_COL, location.city)
+            put(LOCATION_NAME_COL, location.locationName)
+        }
+        val id = db.insert(LOCATION_TABLE_NAME, null, values)
+        db.close()
+        return id
+    }
 
+    // Update method for Location table
+    fun updateLocation(location: Location): Int {
+        val db = this.writableDatabase
+        val values = ContentValues().apply {
+            put(COUNTRY_COL, location.country)
+            put(STATE_COL, location.state)
+            put(CITY_COL, location.city)
+            put(LOCATION_NAME_COL, location.locationName)
+        }
+        val result = db.update(LOCATION_TABLE_NAME, values, "$LOCATION_ID_COL = ?", arrayOf(location.id.toString()))
+        db.close()
+        return result
+    }
+
+    // Delete method for Location table
+    fun deleteLocation(locationId: Int): Int {
+        val db = this.writableDatabase
+        val result = db.delete(LOCATION_TABLE_NAME, "$LOCATION_ID_COL = ?", arrayOf(locationId.toString()))
+        db.close()
+        return result
+    }
+
+    // Method to retrieve all locations from the Location table
+    fun getAllLocations(): List<Location> {
+        val db = this.readableDatabase
+        val cursor = db.query(
+            LOCATION_TABLE_NAME,
+            arrayOf(LOCATION_ID_COL, COUNTRY_COL, STATE_COL, CITY_COL, LOCATION_NAME_COL),
+            null, null, null, null, null
+        )
+
+        val locationList = mutableListOf<Location>()
+        while (cursor.moveToNext()) {
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow(LOCATION_ID_COL))
+            val country = cursor.getString(cursor.getColumnIndexOrThrow(COUNTRY_COL))
+            val state = cursor.getString(cursor.getColumnIndexOrThrow(STATE_COL))
+            val city = cursor.getString(cursor.getColumnIndexOrThrow(CITY_COL))
+            val locationName = cursor.getString(cursor.getColumnIndexOrThrow(LOCATION_NAME_COL))
+            val location = Location(id, country, state, city, locationName)
+            locationList.add(location)
+        }
+        cursor.close()
+        db.close()
+        return locationList
+    }
 
     companion object {
         private const val DATABASE_NAME = "MyDataBase"
-        private const val DATABASE_VERSION = 2
+        private const val DATABASE_VERSION = 3
 
         const val NOTES_TABLE_NAME = "notes_table"
         const val NOTE_ID_COL = "note_id"
@@ -250,5 +332,13 @@ class MySQLiteHelper(
         const val PERSON_DETAILS_COL = "person_details"
         const val EMAIL_COL = "email"
         const val WEBSITE_COL = "website"
+
+
+        const val LOCATION_TABLE_NAME = "location_table"
+        const val LOCATION_ID_COL = "location_id"
+        const val COUNTRY_COL = "country"
+        const val STATE_COL = "state"
+        const val CITY_COL = "city"
+        const val LOCATION_NAME_COL = "location_name"
     }
 }

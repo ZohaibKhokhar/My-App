@@ -19,7 +19,7 @@ class AddNoteActivity : AppCompatActivity() {
         saveBtn.setOnClickListener {
             // Get the note content from the EditText
             val notes=findViewById<EditText>(R.id.etNote)
-            val db = MySQLiteHelper(this, "MyDataBase", null, 3)
+            val db = MySQLiteHelper(this, "MyDataBase", null, 4)
             val content = notes.text.toString()
             db.insertNote(content,getCurrentDate())
             finish()

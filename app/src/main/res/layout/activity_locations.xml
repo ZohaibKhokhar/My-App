@@ -34,7 +34,7 @@
         android:text="Locations(0)"
         android:textColor="@android:color/black"
         android:textSize="24sp"
-        android:textStyle="bold" />
+     />
 
     <!-- No Contact Available Text -->
     <TextView
@@ -47,6 +47,21 @@
         android:text="No Locations Available"
         android:textColor="@android:color/darker_gray"
         android:textSize="16sp" />
+
+
+    <ListView
+        android:id="@+id/location_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/locationsTitle"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/rosepink"
+        app:tint="@color/rosepink"
+        android:divider="@android:color/darker_gray"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginBottom="70dp"
+        android:dividerHeight="1dp" />
 
     <LinearLayout
         android:id="@+id/addlocation"

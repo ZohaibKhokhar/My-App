@@ -12,7 +12,7 @@ import android.widget.PopupMenu
 import android.widget.TextView
 class NoteAdapter(private val context: Context, private var notes: List<Note>) : BaseAdapter() {
 
-    private val dbHelper = MySQLiteHelper(context, "MyDataBase", null, 3)
+    private val dbHelper = MySQLiteHelper(context, "MyDataBase", null, 4)
 
     override fun getCount(): Int {
         return notes.size
@@ -73,7 +73,7 @@ class NoteAdapter(private val context: Context, private var notes: List<Note>) :
             .setPositiveButton("Update") { _, _ ->
                 val newContent = editText.text.toString()
                 if (newContent.isNotEmpty()) {
-                    val db = MySQLiteHelper(context, "MyDataBase", null, 3)
+                    val db = MySQLiteHelper(context, "MyDataBase", null, 4)
                     db.updateNote(note.id, newContent)
                     // Refresh the notes list
                     if (context is NotesActivity) {
@@ -92,7 +92,7 @@ class NoteAdapter(private val context: Context, private var notes: List<Note>) :
             .setTitle("Delete Note")
             .setMessage("Are you sure you want to delete this note?")
             .setPositiveButton("Delete") { _, _ ->
-                val db = MySQLiteHelper(context, "MyDataBase", null, 3)
+                val db = MySQLiteHelper(context, "MyDataBase", null, 4)
                 db.deleteNote(note.id)
                 // Refresh the notes list
                 if (context is NotesActivity) {

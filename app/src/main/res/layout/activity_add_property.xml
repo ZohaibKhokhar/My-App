@@ -49,7 +49,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/plus"
+                android:src="@drawable/plus2"
                 android:contentDescription="plusSign"
                 app:tint="@color/rosepink"
                 />
@@ -210,15 +210,25 @@
              />
 
         <TextView
-            android:id="@+id/addressDetails"
+            android:id="@+id/addressOptional"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:clickable="true"
             android:layout_marginTop="8dp"
             android:text="Addess details (Optional)"
+            android:contextClickable="true"
+            android:focusable="true"
             android:textSize="13sp"
            />
+    <LinearLayout
+        android:id="@+id/addressDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"> <!-- Initially hidden -->
+        >
+
         <EditText
             android:id="@+id/completeAddress"
             android:layout_width="match_parent"
@@ -263,17 +273,60 @@
             android:textColor="@color/black"
             android:textSize="14sp"
             />
-
-
-        <!-- Next Button -->
-        <Button
-            android:id="@+id/nextButton"
+    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/addnotes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Next"
-            android:textColor="@android:color/white"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="30dp"
+            android:background="@android:drawable/btn_default"
+            android:gravity="end"
+            android:clickable="true"
+            android:padding="16dp"
+            android:layout_gravity="end"
             android:backgroundTint="@color/rosepink"
-            android:layout_marginTop="24dp"
-             />
+            android:orientation="vertical">
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center_horizontal"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/notesCaption"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:textSize="15sp"
+        android:paddingRight="10dp"
+        android:textColor="@color/white"
+        android:text="Next" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="5dp"
+        android:layout_marginEnd="2dp"
+        android:adjustViewBounds="true"
+        android:background="@color/rosepink"
+        android:maxWidth="18dp"
+        android:maxHeight="18dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/next"
+        app:tint="@color/white" />
+
+</LinearLayout>
+
+
+        </LinearLayout>
+
     </LinearLayout>
+
+
+
 </ScrollView>

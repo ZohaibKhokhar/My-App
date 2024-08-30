@@ -1,5 +1,6 @@
 package com.example.easypropertydealer
 
+import ContactAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -9,69 +10,64 @@ import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ContactsActivity : AppCompatActivity() {
 
     private lateinit var adapter: ContactAdapter
     private lateinit var listView: ListView
+    private lateinit var noContactsText: TextView
+    private lateinit var contactsTitle: TextView
+    private lateinit var tabAll: TextView
+    private lateinit var tabDealer: TextView
+    private lateinit var tabInvestor: TextView
+    private var contacts: List<Contact> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contact)
 
+        // Initialize views
+        noContactsText = findViewById(R.id.noContactText)
+        contactsTitle = findViewById(R.id.contactsTitle)
+        tabAll = findViewById(R.id.tabAll)
+        tabDealer = findViewById(R.id.tabDealer)
+        tabInvestor = findViewById(R.id.tabInvestor)
+        listView = findViewById(R.id.contactsList)
 
+        // Back button
         val back = findViewById<ImageView>(R.id.backButton)
         back.setOnClickListener {
             finish()
         }
 
-        val db = MySQLiteHelper(this, "MyDataBase", null, 3)
-        val contacts = db.getAllContacts()
-
-        val textView = findViewById<TextView>(R.id.noContactText)
-        if (contacts.isNotEmpty()) {
-            textView.visibility = View.GONE
+        // Fetch contacts
+        fetchContacts { fetchedContacts ->
+            contacts = fetchedContacts
+            updateUI()
         }
-        val contactsTitle = findViewById<TextView>(R.id.contactsTitle)
-        val tabAll = findViewById<TextView>(R.id.tabAll)
-        val tabDealer = findViewById<TextView>(R.id.tabDealer)
-        val tabInvestor = findViewById<TextView>(R.id.tabInvestor)
-        contactsTitle.text = "Contacts(${contacts.size})"
-        tabAll.text = "All(${contacts.size})"
-        tabDealer.text="Dealer(${contacts.count { it.dealer }})"
-        tabInvestor.text="Invester(${contacts.count { it.investor }})"
 
-        tabDealer.setOnClickListener{
-            tabDealer.setTextColor(ContextCompat.getColor(this, R.color.rosepink))
-            tabAll.setTextColor(ContextCompat.getColor(this, R.color.darkgray))
-            tabInvestor.setTextColor(ContextCompat.getColor(this, R.color.darkgray))
+        tabDealer.setOnClickListener {
+            updateTabColors(tabDealer, "Dealer(${contacts.count { it.dealer }})")
             val filteredContacts = contacts.filter { it.dealer }
-            adapter = ContactAdapter(this, filteredContacts)
-            listView.adapter = adapter
+            updateAdapter(filteredContacts)
         }
 
-        tabInvestor.setOnClickListener{
-            tabDealer.setTextColor(ContextCompat.getColor(this, R.color.darkgray))
-            tabAll.setTextColor(ContextCompat.getColor(this, R.color.darkgray))
-            tabInvestor.setTextColor(ContextCompat.getColor(this, R.color.rosepink))
+        tabInvestor.setOnClickListener {
+            updateTabColors(tabInvestor, "Investor(${contacts.count { it.investor }})")
             val filteredContacts = contacts.filter { it.investor }
-            adapter = ContactAdapter(this, filteredContacts)
-            listView.adapter = adapter
+            updateAdapter(filteredContacts)
         }
 
         tabAll.setOnClickListener {
-            tabDealer.setTextColor(ContextCompat.getColor(this, R.color.darkgray))
-            tabAll.setTextColor(ContextCompat.getColor(this, R.color.rosepink))
-            tabInvestor.setTextColor(ContextCompat.getColor(this, R.color.darkgray))
-            val contacts2=db.getAllContacts()
-            adapter = ContactAdapter(this, contacts2)
-            listView.adapter = adapter
+            updateTabColors(tabAll, "All(${contacts.size})")
+            updateAdapter(contacts)
         }
 
-        listView = findViewById(R.id.contactsList)
-        adapter = ContactAdapter(this, contacts)
-        listView.adapter = adapter
-
+        // Add contact button
         val addContactButton = findViewById<LinearLayout>(R.id.addContactsButton)
         addContactButton.setOnClickListener {
             val intent = Intent(this, AddContactActivity::class.java)
@@ -81,24 +77,63 @@ class ContactsActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        updateContactsList()
+        fetchContacts { fetchedContacts ->
+            contacts = fetchedContacts
+            updateUI()
+        }
     }
 
-    fun updateContactsList() {
-        val db = MySQLiteHelper(this, "MyDataBase", null, 3)
-        val contacts = db.getAllContacts()
+    private fun fetchContacts(onResult: (List<Contact>) -> Unit) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val fetchedContacts = RetrofitInstance.contactApi.getContacts()
+                withContext(Dispatchers.Main) {
+                    if (fetchedContacts.isNotEmpty()) {
+                        noContactsText.visibility = View.GONE
+                    } else {
+                        noContactsText.visibility = View.VISIBLE
+                    }
+                    onResult(fetchedContacts)
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    noContactsText.text = "Failed to fetch data: ${e.message}"
+                    onResult(emptyList()) // Return an empty list in case of an error
+                }
+                e.printStackTrace()
+            }
+        }
+    }
 
-        val contactsTitle = findViewById<TextView>(R.id.contactsTitle)
-        val tabAll = findViewById<TextView>(R.id.tabAll)
-        val tabDealer = findViewById<TextView>(R.id.tabDealer)
-        val tabInvestor = findViewById<TextView>(R.id.tabInvestor)
+    private fun updateUI() {
         contactsTitle.text = "Contacts(${contacts.size})"
         tabAll.text = "All(${contacts.size})"
-        tabDealer.text="Dealer(${contacts.count { it.dealer }})"
-        tabInvestor.text="Invester(${contacts.count { it.investor }})"
 
-        adapter = ContactAdapter(this, contacts)
+        // Initialize adapter and set it to the list view
+        updateAdapter(contacts)
+    }
+
+    private fun updateAdapter(newContacts: List<Contact>) {
+        adapter = ContactAdapter(this, newContacts)
         listView.adapter = adapter
+    }
+
+    private fun updateTabColors(selectedTab: TextView, newText: String) {
+        // Reset all tabs to default color
+        tabAll.setTextColor(ContextCompat.getColor(this, R.color.darkgray))
+        tabDealer.setTextColor(ContextCompat.getColor(this, R.color.darkgray))
+        tabInvestor.setTextColor(ContextCompat.getColor(this, R.color.darkgray))
+
+        // Set the selected tab's color and text
+        selectedTab.setTextColor(ContextCompat.getColor(this, R.color.rosepink))
+        selectedTab.text = newText
+    }
+    // Function to update the contacts list
+    fun updateContactsList() {
+        fetchContacts { fetchedContacts ->
+            contacts = fetchedContacts
+            updateUI()
+        }
     }
 
 

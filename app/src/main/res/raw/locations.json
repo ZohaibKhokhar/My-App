@@ -1,5 +1,17 @@
 {
-  "United States": {
+  "Country": {
+    "State": ["Lahore","Multan","Rawalpindi","Faisalabad"],
+    "City": ["Karachi","sakhar"]
+
+  },
+
+  "Pakistan": {
+   "Punjab": ["Lahore","Multan","Rawalpindi","Faisalabad"],
+    "Sindh": ["Karachi","sakhar"],
+    "kpk": ["Peshawar","Sawat","charsada"]
+
+  }
+  ,"United States": {
     "California": ["Los Angeles", "San Francisco"],
     "Texas": ["Houston", "Dallas"]
   },

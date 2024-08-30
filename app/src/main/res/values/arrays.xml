@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="remind_about_options">
+        <item>Call</item>
+        <item>Meeting</item>
+        <item>Site Visit</item>
+        <item>Other</item>
+    </string-array>
+</resources>

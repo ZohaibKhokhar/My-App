@@ -10,11 +10,12 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class NotesActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notes)
 
-        val db = MySQLiteHelper(this, "MyDataBase", null, 3)
+        val db = MySQLiteHelper(this, "MyDataBase", null, 4)
         val notes = db.getAllNotes() // Fetch all notes from the database
 
         val notesTitle = findViewById<TextView>(R.id.notesTitle)
@@ -43,7 +44,7 @@ class NotesActivity : AppCompatActivity() {
 
     // NotesActivity.kt
     fun updateNotesList() {
-        val db = MySQLiteHelper(this, "MyDataBase", null, 3)
+        val db = MySQLiteHelper(this, "MyDataBase", null, 4)
         val notes = db.getAllNotes()
 
         val notesTitle = findViewById<TextView>(R.id.notesTitle)

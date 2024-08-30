@@ -48,7 +48,7 @@ class AddContactActivity : AppCompatActivity() {
             val email=findViewById<EditText>(R.id.edit_text_email)
             val website=findViewById<EditText>(R.id.edit_text_website)
 
-            val db = MySQLiteHelper(this, "MyDataBase", null, 3)
+            val db = MySQLiteHelper(this, "MyDataBase", null, 4)
             db.insertContact(
                 name.text.toString(),               // name: String
                 phone.text.toString(),              // mobileNo: String
@@ -64,7 +64,7 @@ class AddContactActivity : AppCompatActivity() {
         }
 
         // Choose From Mobile Contacts Button
-        val chooseContactsBtn: Button = findViewById(R.id.btn_choose_contacts)
+        val chooseContactsBtn:LinearLayout= findViewById(R.id.btn_choose_contacts)
         chooseContactsBtn.setOnClickListener {
             val pickContactIntent = Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI)
             startActivityForResult(pickContactIntent, PICK_CONTACT_REQUEST)

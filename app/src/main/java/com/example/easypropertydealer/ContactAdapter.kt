@@ -1,5 +1,3 @@
-package com.example.easypropertydealer
-
 import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
@@ -10,6 +8,17 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
+import android.widget.Toast
+import com.example.easypropertydealer.Contact
+import com.example.easypropertydealer.ContactsActivity
+import com.example.easypropertydealer.R
+import com.example.easypropertydealer.RetrofitInstance
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.HttpException
+import retrofit2.Response
 
 class ContactAdapter(private val context: Context, private val contacts: List<Contact>) : BaseAdapter() {
 
@@ -35,7 +44,6 @@ class ContactAdapter(private val context: Context, private val contacts: List<Co
         val contact = contacts[position]
         viewHolder.contactName.text = contact.name
         viewHolder.contactPhone.text = contact.mobileNo
-        viewHolder.contactAddress.text = contact.address
         viewHolder.contactIcon.setImageResource(R.drawable.contact)
 
         viewHolder.moreOptions.setOnClickListener {
@@ -65,21 +73,52 @@ class ContactAdapter(private val context: Context, private val contacts: List<Co
     }
 
     private fun handleUpdate(contact: Contact, position: Int) {
-        val editText = EditText(context)
-        editText.setText(contact.name)  // Assuming we're updating the name; adjust as needed
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.dailog_update_contact, null)
+        val editName = dialogView.findViewById<EditText>(R.id.editName)
+        val editMobileNo = dialogView.findViewById<EditText>(R.id.editMobileNo)
+        val editAddress = dialogView.findViewById<EditText>(R.id.editAddress)
+
+        // Set existing values
+        editName.setText(contact.name)
+        editMobileNo.setText(contact.mobileNo)
+        editAddress.setText(contact.address)
 
         val dialog = AlertDialog.Builder(context)
             .setTitle("Update Contact")
-            .setMessage("Enter new name:")
-            .setView(editText)
+            .setView(dialogView)
             .setPositiveButton("Update") { _, _ ->
-                val newName = editText.text.toString()
-                if (newName.isNotEmpty()) {
-                    val db = MySQLiteHelper(context, "MyDataBase", null, 2)
-                    db.updateContact(contact.id, newName, contact.mobileNo, contact.address, contact.dealer, contact.investor, contact.companyName, contact.personDetails, contact.email, contact.website)
-                    // Refresh the contacts list
-                    if (context is ContactsActivity) {
-                        (context as ContactsActivity).updateContactsList()
+                val newName = editName.text.toString()
+                val newMobileNo = editMobileNo.text.toString()
+                val newAddress = editAddress.text.toString()
+
+                if (newName.isNotEmpty() && newMobileNo.isNotEmpty()) {
+                    val updatedContact = contact.copy(
+                        name = newName,
+                        mobileNo = newMobileNo,
+                        address = newAddress
+                    )
+                    CoroutineScope(Dispatchers.IO).launch {
+                        try {
+                            val response = RetrofitInstance.contactApi.updateContact(contact.id, updatedContact)
+                            if (response.isSuccessful) {
+                                withContext(Dispatchers.Main) {
+                                    // Refresh the contacts list
+                                    if (context is ContactsActivity) {
+                                        (context as ContactsActivity).updateContactsList()
+                                    }
+                                }
+                            } else {
+                                // Handle unsuccessful response
+                                withContext(Dispatchers.Main) {
+                                    showToast("Update failed: ${response.message()}")
+                                }
+                            }
+                        } catch (e: HttpException) {
+                            withContext(Dispatchers.Main) {
+                                showToast("Update failed: ${e.message()}")
+                            }
+                            e.printStackTrace()
+                        }
                     }
                 }
             }
@@ -89,16 +128,34 @@ class ContactAdapter(private val context: Context, private val contacts: List<Co
         dialog.show()
     }
 
+
     private fun handleDelete(contact: Contact, position: Int) {
         AlertDialog.Builder(context)
             .setTitle("Delete Contact")
             .setMessage("Are you sure you want to delete this contact?")
             .setPositiveButton("Delete") { _, _ ->
-                val db = MySQLiteHelper(context, "MyDataBase", null, 2)
-                db.deleteContact(contact.id)
-                // Refresh the contacts list
-                if (context is ContactsActivity) {
-                    (context as ContactsActivity).updateContactsList()
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        val response = RetrofitInstance.contactApi.deleteContact(contact.id)
+                        if (response.isSuccessful) {
+                            withContext(Dispatchers.Main) {
+                                // Refresh the contacts list
+                                if (context is ContactsActivity) {
+                                    (context as ContactsActivity).updateContactsList()
+                                }
+                            }
+                        } else {
+                            // Handle unsuccessful response
+                            withContext(Dispatchers.Main) {
+                                showToast("Delete failed: ${response.message()}")
+                            }
+                        }
+                    } catch (e: HttpException) {
+                        withContext(Dispatchers.Main) {
+                            showToast("Delete failed: ${e.message()}")
+                        }
+                        e.printStackTrace()
+                    }
                 }
             }
             .setNegativeButton("Cancel", null)
@@ -106,10 +163,13 @@ class ContactAdapter(private val context: Context, private val contacts: List<Co
             .show()
     }
 
+    private fun showToast(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
     private class ViewHolder(view: View) {
         val contactName: TextView = view.findViewById(R.id.contactName)
         val contactPhone: TextView = view.findViewById(R.id.contactPhone)
-        val contactAddress: TextView = view.findViewById(R.id.contactAddress)
         val contactIcon: ImageView = view.findViewById(R.id.contactIcon)
         val moreOptions: ImageView = view.findViewById(R.id.btnMore)
     }
