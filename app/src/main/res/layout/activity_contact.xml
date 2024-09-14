@@ -20,6 +20,7 @@
         android:id="@+id/searchButton"
         android:layout_width="21dp"
         android:layout_height="21dp"
+        android:visibility="gone"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:src="@drawable/search" />
@@ -52,16 +53,16 @@
             android:layout_height="wrap_content"
             android:text="All(0)"
             android:textColor="@color/rosepink"
-            android:textSize="13sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tabDealer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Dealer(0)"
+            android:text="Dealer"
             android:textColor="@android:color/darker_gray"
-            android:textSize="13sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tabInvestor"
@@ -69,10 +70,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:textColor="@android:color/darker_gray"
-            android:text="Investor (0)"
-            android:textSize="13sp" />
-
-
+            android:text="Investor"
+            android:textSize="14sp" />
     </LinearLayout>
 
     <!-- No Contact Available Text -->
@@ -87,6 +86,17 @@
         android:textColor="@android:color/darker_gray"
         android:textSize="16sp" />
 
+    <!-- Progress Bar -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/noContactText"
+        android:layout_marginTop="20dp"
+        android:visibility="gone" />
+
+    <!-- ListView -->
     <ListView
         android:id="@+id/contactsList"
         android:layout_width="match_parent"
@@ -101,7 +111,7 @@
         android:layout_marginBottom="70dp"
         android:dividerHeight="1dp" />
 
-
+    <!-- Add Contact Button -->
     <LinearLayout
         android:id="@+id/addContactsButton"
         android:layout_width="wrap_content"
@@ -109,10 +119,10 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
-        android:background="@android:drawable/btn_default"
+        android:background="@drawable/ripple_effect"
         android:gravity="end"
         android:clickable="true"
-        android:padding="16dp"
+        android:padding="12dp"
         android:layout_gravity="end"
         android:backgroundTint="@color/rosepink"
         android:orientation="horizontal">
@@ -126,7 +136,8 @@
             android:adjustViewBounds="true"
             android:background="@color/rosepink"
             android:maxHeight="18dp"
-            android:maxWidth="18dp"            android:scaleType="fitCenter"
+            android:maxWidth="18dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/addcontact"
             app:tint="@color/white" />
 
@@ -137,6 +148,7 @@
             android:layout_gravity="center_vertical"
             android:textSize="15sp"
             android:paddingRight="10dp"
+            android:textStyle="bold"
             android:textColor="@color/white"
             android:gravity="center"
             android:text="Add New Contact" />

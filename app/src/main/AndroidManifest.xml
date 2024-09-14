@@ -39,6 +39,14 @@
         <activity android:name=".AddContactActivity" />
         <activity android:name=".AddPropertyActivity" />
         <activity android:name=".AddLocationActivity" />
+        <activity android:name=".EditPropertyActivity"/>
+        <activity android:name=".AddDealActivity"/>
+        <activity android:name=".ContactListActivity"/>
+        <activity android:name=".LocationListActivity"/>
+        <activity android:name=".PropertyListActivity" />
+        <activity android:name=".AddReminderActivity"/>
+        <activity android:name=".DealListActivity"/>
+
 
 
     </application>

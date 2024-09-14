@@ -4,9 +4,17 @@
     <color name="lighterpink">#FFB6C1</color>
     <color name="white">#FFFFFFFF</color>
     <color name="babypink">#F4C2C2</color>
-    <color name="rosepink">#eb1f63</color>
+    <color name="rosepink">#FF0000  </color>
+    <color name="darkred">#FF6666</color>
     <color name="lightpink"> #FFC0CB</color>
     <color name="hotpink">#FF69B4</color>
     <color name="darkgray">#808080</color>
     <color name="gray">#D3D3D3</color>
+        <color name="activated_color"> #FF0000</color> <!-- Example color for activated state -->
+        <color name="deactivated_color">#FF000000</color> <!-- Example color for deactivated state -->
+    <color name="spinner_background">   #FFFFFF</color> <!-- Custom background color -->
+    <color name="spinner_text_color">#333333</color> <!-- Custom text color -->
+
+    <color name="saved">    #006266</color>
+
 </resources>

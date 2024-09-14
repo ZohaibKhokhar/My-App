@@ -10,9 +10,19 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
+import android.widget.Toast
+import com.example.easypropertydealer.RetrofitInstance.noteApi
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
 class NoteAdapter(private val context: Context, private var notes: List<Note>) : BaseAdapter() {
 
     private val dbHelper = MySQLiteHelper(context, "MyDataBase", null, 4)
+
 
     override fun getCount(): Int {
         return notes.size
@@ -35,7 +45,7 @@ class NoteAdapter(private val context: Context, private var notes: List<Note>) :
 
         val note = getItem(position) as Note
         noteContent.text = note.content
-        noteDate.text = "Creation Date: ${note?.creationDate}"
+        noteDate.text = "Creation Date: ${note.creationDate}"
 
         noteImage.setOnClickListener {
             showPopupMenu(noteImage, note, position)
@@ -62,6 +72,7 @@ class NoteAdapter(private val context: Context, private var notes: List<Note>) :
         }
         popupMenu.show()
     }
+
     private fun handleUpdate(note: Note, position: Int) {
         val editText = EditText(context)
         editText.setText(note.content)
@@ -73,11 +84,28 @@ class NoteAdapter(private val context: Context, private var notes: List<Note>) :
             .setPositiveButton("Update") { _, _ ->
                 val newContent = editText.text.toString()
                 if (newContent.isNotEmpty()) {
-                    val db = MySQLiteHelper(context, "MyDataBase", null, 4)
-                    db.updateNote(note.id, newContent)
-                    // Refresh the notes list
-                    if (context is NotesActivity) {
-                        (context as NotesActivity).updateNotesList()
+                    CoroutineScope(Dispatchers.IO).launch {
+                        try {
+                            // Call API to update note on the server
+                            val updatedNote = note.copy(content = newContent)
+                            val response = noteApi.updateNote(note.id, updatedNote)
+                            withContext(Dispatchers.Main) {
+                                if (response.isSuccessful) {
+                                    Toast.makeText(context, "Note updated successfully", Toast.LENGTH_SHORT).show()
+                                    // Update local db and refresh UI
+                                    dbHelper.updateNote(note.id, newContent)
+                                    if (context is NotesActivity) {
+                                        context.updateNotesList()
+                                    }
+                                } else {
+                                    Toast.makeText(context, "Failed to update note", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        } catch (e: Exception) {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_LONG).show()
+                            }
+                        }
                     }
                 }
             }
@@ -92,11 +120,27 @@ class NoteAdapter(private val context: Context, private var notes: List<Note>) :
             .setTitle("Delete Note")
             .setMessage("Are you sure you want to delete this note?")
             .setPositiveButton("Delete") { _, _ ->
-                val db = MySQLiteHelper(context, "MyDataBase", null, 4)
-                db.deleteNote(note.id)
-                // Refresh the notes list
-                if (context is NotesActivity) {
-                    (context as NotesActivity).updateNotesList()
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        // Call API to delete the note from the server
+                        val response = noteApi.deleteNote(note.id)
+                        withContext(Dispatchers.Main) {
+                            if (response.isSuccessful) {
+                                Toast.makeText(context, "Note deleted successfully", Toast.LENGTH_SHORT).show()
+                                // Delete from local db and refresh UI
+                                dbHelper.deleteNote(note.id)
+                                if (context is NotesActivity) {
+                                    context.updateNotesList()
+                                }
+                            } else {
+                                Toast.makeText(context, "Failed to delete note", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    } catch (e: Exception) {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_LONG).show()
+                        }
+                    }
                 }
             }
             .setNegativeButton("Cancel", null)

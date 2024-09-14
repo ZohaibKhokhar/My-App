@@ -22,6 +22,7 @@ android:background="@color/white"
         android:layout_width="22dp"
         android:layout_height="22dp"
         android:layout_alignParentEnd="true"
+        android:visibility="gone"
         android:layout_marginRight="10dp"
         android:layout_alignParentTop="true"
         android:src="@drawable/search" />
@@ -37,6 +38,29 @@ android:background="@color/white"
         android:textColor="@android:color/black"
         android:textSize="21sp"
      />
+
+    <TextView
+        android:id="@+id/noNoteText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/notesTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:text="No Note Available"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="16sp" />
+
+
+    <!-- Progress Bar -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/notesTitle"
+        android:layout_marginTop="20dp"
+        android:visibility="gone" />
+
 
 
     <!-- Add New Contact Button -->
@@ -57,10 +81,10 @@ android:background="@color/white"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
-        android:background="@android:drawable/btn_default"
+        android:background="@drawable/ripple_effect"
         android:gravity="end"
         android:clickable="true"
-        android:padding="16dp"
+        android:padding="12dp"
         android:layout_gravity="end"
         android:backgroundTint="@color/rosepink"
         android:orientation="horizontal">
@@ -76,7 +100,7 @@ android:background="@color/white"
             android:maxHeight="18dp"
             android:maxWidth="18dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/notes"
+            android:src="@drawable/note2"
             app:tint="@color/white" />
 
         <TextView
@@ -85,6 +109,7 @@ android:background="@color/white"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textSize="15sp"
+            android:textStyle="bold"
             android:paddingRight="10dp"
             android:textColor="@color/white"
             android:gravity="center"

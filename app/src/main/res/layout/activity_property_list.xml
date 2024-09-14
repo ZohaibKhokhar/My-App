@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/white"
+    android:padding="12dp">
+
+    <TextView
+        android:id="@+id/tvSelectProperty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="Select Property"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center_horizontal"
+        android:textSize="23dp"
+        android:textStyle="bold"
+        android:gravity="center_horizontal"
+        />
+
+    <!-- ListView -->
+    <ListView
+        android:id="@+id/PropertyList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tvSelectProperty"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="@color/rosepink"
+        app:tint="@color/rosepink"
+        android:divider="@android:color/darker_gray"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginBottom="70dp"
+        android:dividerHeight="1dp" />
+
+
+
+</RelativeLayout>

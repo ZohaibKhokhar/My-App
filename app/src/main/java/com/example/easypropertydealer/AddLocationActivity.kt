@@ -2,28 +2,22 @@ package com.example.easypropertydealer
 
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.easypropertydealer.RetrofitInstance.api
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.InputStream
 
 class AddLocationActivity : AppCompatActivity() {
 
     private lateinit var countrySpinner: Spinner
     private lateinit var stateSpinner: Spinner
     private lateinit var citySpinner: Spinner
+    private lateinit var layout:LinearLayout
+    private lateinit var  progressBar:ProgressBar
+    private var authToken: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,29 +26,26 @@ class AddLocationActivity : AppCompatActivity() {
         countrySpinner = findViewById(R.id.country_spinner)
         stateSpinner = findViewById(R.id.state_spinner)
         citySpinner = findViewById(R.id.city_spinner)
+        layout=findViewById(R.id.layout_location_form)
+        progressBar=findViewById(R.id.progressBar)
 
-        // Load JSON data
-        val locationJson = loadJsonFromFile()
 
-        // Parse JSON data
-        val type = object : TypeToken<Map<String, Map<String, List<String>>>>() {}.type
-        val locationMap: Map<String, Map<String, List<String>>> = Gson().fromJson(locationJson, type)
-
-        // Set up Spinners
-        setupCountrySpinner(locationMap)
-
-        val back = findViewById<ImageView>(R.id.backButton)
-        back.setOnClickListener {
-            finish()
-        }
+        // Fetch Authorization token and then fetch countries
+        fetchAuthTokenAndCountries()
 
         val save = findViewById<LinearLayout>(R.id.saveLocation)
         save.setOnClickListener {
             // Get the selected values from the Spinners
-            val country = countrySpinner.selectedItem.toString()
-            val state = stateSpinner.selectedItem.toString()
-            val city = citySpinner.selectedItem.toString()
+            val country = countrySpinner.selectedItem?.toString()
+            val state = stateSpinner.selectedItem?.toString()
+            val city = citySpinner.selectedItem?.toString()
             val locationName = findViewById<EditText>(R.id.location_name).text.toString()
+
+            // Check if any field is empty
+            if (country.isNullOrEmpty() || state.isNullOrEmpty() || city.isNullOrEmpty() || locationName.isEmpty()) {
+                Toast.makeText(this@AddLocationActivity, "Please fill out all fields", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
             // Create a Location object
             val location = Location(
@@ -87,49 +78,116 @@ class AddLocationActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadJsonFromFile(): String {
-        val inputStream: InputStream = resources.openRawResource(R.raw.locations)
-        return inputStream.bufferedReader().use { it.readText() }
+    private fun fetchAuthTokenAndCountries() {
+        // Perform network request to get auth token first, then fetch countries
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = RetrofitClient.apiService.getAuthToken()
+                if (response.isSuccessful) {
+                    authToken = response.body()?.auth_token
+                    if (authToken != null) {
+                        fetchCountries()
+                    }
+                } else {
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@AddLocationActivity, "Failed to fetch auth token", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@AddLocationActivity, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
-    private fun setupCountrySpinner(locationMap: Map<String, Map<String, List<String>>>) {
-        val countries = locationMap.keys.toList()
-        val countryAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, countries)
+    private fun fetchCountries() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = RetrofitClient.apiService.getCountries("Bearer $authToken")
+                if (response.isSuccessful) {
+                    val countries = response.body() ?: emptyList()
+                    withContext(Dispatchers.Main) {
+                        setupCountrySpinner(countries)
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@AddLocationActivity, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun setupCountrySpinner(countryList: List<Country>) {
+        val countryNames = countryList.map { it.country_name }
+        val countryAdapter = ArrayAdapter(this, R.layout.custom_spinner_item, countryNames)
         countrySpinner.adapter = countryAdapter
 
         countrySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                val selectedCountry = countries[position]
-                val states = locationMap[selectedCountry]?.keys?.toList()
-                if (states != null) {
-                    setupStateSpinner(locationMap[selectedCountry]!!)
-                }
+                val selectedCountry = countryList[position].country_name
+                fetchStates(selectedCountry)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
     }
 
-    private fun setupStateSpinner(stateMap: Map<String, List<String>>) {
-        val states = stateMap.keys.toList()
-        val stateAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, states)
+    private fun fetchStates(countryName: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = RetrofitClient.apiService.getStates(countryName, "Bearer $authToken")
+                if (response.isSuccessful) {
+                    val states = response.body() ?: emptyList()
+                    withContext(Dispatchers.Main) {
+                        setupStateSpinner(states)
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@AddLocationActivity, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun setupStateSpinner(stateList: List<State>) {
+        val stateNames = stateList.map { it.state_name }
+        val stateAdapter = ArrayAdapter(this, R.layout.custom_spinner_item, stateNames)
         stateSpinner.adapter = stateAdapter
 
         stateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                val selectedState = states[position]
-                val cities = stateMap[selectedState]
-                if (cities != null) {
-                    setupCitySpinner(cities)
-                }
+                val selectedState = stateList[position].state_name
+                fetchCities(selectedState)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
     }
 
-    private fun setupCitySpinner(cities: List<String>) {
-        val cityAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, cities)
+    private fun fetchCities(stateName: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = RetrofitClient.apiService.getCities(stateName, "Bearer $authToken")
+                if (response.isSuccessful) {
+                    val cities = response.body() ?: emptyList()
+                    withContext(Dispatchers.Main) {
+                        setupCitySpinner(cities)
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@AddLocationActivity, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun setupCitySpinner(cityList: List<City>) {
+        val cityNames = cityList.map { it.city_name }
+        val cityAdapter = ArrayAdapter(this, R.layout.custom_spinner_item, cityNames)
         citySpinner.adapter = cityAdapter
     }
 }

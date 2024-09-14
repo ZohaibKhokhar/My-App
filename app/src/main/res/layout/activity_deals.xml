@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/white"
-    android:padding="16dp">
+    android:padding="8dp">
 
     <!-- Back Button -->
     <ImageView
@@ -20,6 +20,7 @@
         android:id="@+id/searchButton"
         android:layout_width="24dp"
         android:layout_height="24dp"
+        android:visibility="gone"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:src="@drawable/search" />
@@ -33,8 +34,8 @@
         android:layout_marginTop="16dp"
         android:text="Deals(0)"
         android:textColor="@android:color/black"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textSize="21sp"
+        />
 
     <!-- No Contact Available Text -->
     <TextView
@@ -49,6 +50,26 @@
         android:textSize="16sp" />
 
 
+    <!-- Progress Bar -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/noDealsText"
+        android:layout_marginTop="20dp"
+        android:visibility="gone" />
+
+
+    <ListView
+        android:id="@+id/dealsListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/dealsTitle"
+        android:layout_marginBottom="70dp"
+        android:backgroundTint="@color/rosepink"
+        android:layout_marginTop="5dp" />
+
     <LinearLayout
         android:id="@+id/addDealsButton"
         android:layout_width="wrap_content"
@@ -56,10 +77,10 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
-        android:background="@android:drawable/btn_default"
+        android:background="@drawable/ripple_effect"
         android:gravity="end"
         android:clickable="true"
-        android:padding="16dp"
+        android:padding="12dp"
         android:layout_gravity="end"
         android:backgroundTint="@color/rosepink"
         android:orientation="horizontal">
@@ -84,6 +105,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="center"
+            android:textStyle="bold"
             android:paddingRight="10dp"
             android:text="Add New Deal"
             android:fontFamily="Roboto"

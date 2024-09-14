@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ListView
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -23,6 +24,7 @@ class LocationActivity : AppCompatActivity() {
     private lateinit var mySQLiteHelper: MySQLiteHelper
     private lateinit var noLocationsText: TextView
     private lateinit var locationsTitle: TextView
+    private lateinit var progesssBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -33,6 +35,7 @@ class LocationActivity : AppCompatActivity() {
         locationListView = findViewById(R.id.location_list_view)
         noLocationsText = findViewById(R.id.noLocationsText)
         locationsTitle = findViewById(R.id.locationsTitle)
+        progesssBar = findViewById(R.id.progressBar)
 
         val back = findViewById<ImageView>(R.id.backButton)
         back.setOnClickListener {
@@ -46,6 +49,8 @@ class LocationActivity : AppCompatActivity() {
         }
 
         // Fetch locations and update UI
+        progesssBar.visibility = View.VISIBLE
+        noLocationsText.visibility = View.GONE
         fetchLocations()
     }
 
@@ -57,11 +62,16 @@ class LocationActivity : AppCompatActivity() {
 
                     if (locations.isNotEmpty()) {
                         withContext(Dispatchers.Main) {
-                            noLocationsText.visibility = View.GONE
                             locationsTitle.text = "Locations(${locations.size})"
+                            progesssBar.visibility = View.GONE
                         }
                         locationAdapter = LocationAdapter(this@LocationActivity, locations)
                         locationListView.adapter = locationAdapter
+                    }
+                    else {
+                        noLocationsText.text = "Network Error"
+                        noLocationsText.visibility= View.VISIBLE
+                        progesssBar.visibility = View.GONE
                     }
                 }
             } catch (e: Exception) {
@@ -80,20 +90,6 @@ class LocationActivity : AppCompatActivity() {
     }
 
     fun updateLocationsList() {
-
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val locations = RetrofitInstance.api.getLocations()
-                withContext(Dispatchers.Main) {
-                    locationsTitle.text = "Locations(${locations.size})"
-                    locationAdapter = LocationAdapter(this@LocationActivity, locations)
-                    locationListView.adapter = locationAdapter
-                }
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    noLocationsText.text = "Error fetching data"
-                }
-            }
-        }
+        fetchLocations()
     }
 }

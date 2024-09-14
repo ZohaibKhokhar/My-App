@@ -11,7 +11,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+>
         <!-- Back Button -->
         <ImageView
             android:id="@+id/backButton"
@@ -19,7 +23,7 @@
             android:layout_height="35dp"
             android:src="@drawable/left"
             android:contentDescription="back"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="18dp"
             android:padding="8dp"
             android:layout_gravity="start" />
 
@@ -31,8 +35,63 @@
             android:text="Property Form"
             android:textColor="@android:color/black"
             android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="40dp"
+            android:layout_marginBottom="6dp"
             android:layout_gravity="center"
-            android:padding="8dp" />
+            android:layout_weight="1"
+            android:padding="2dp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/contactdata"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:backgroundTint="@color/rosepink"
+            android:padding="5dp"
+            android:background="?attr/selectableItemBackground"
+            android:visibility="gone"
+            >
+
+            <ImageView
+                android:id="@+id/contactIcon"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/contact"
+                android:contentDescription="contact"
+                app:tint="@color/rosepink"
+                android:layout_gravity="center_vertical"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/rosepink"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/contactName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    />
+
+                <TextView
+                    android:id="@+id/contactPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="11sp"
+                    android:textColor="@android:color/darker_gray" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+
 
         <!-- Select Contact Button -->
         <LinearLayout
@@ -47,6 +106,7 @@
             android:layout_marginVertical="8dp">
 
             <ImageView
+                android:id="@+id/plus"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/plus2"
@@ -55,6 +115,7 @@
                 />
 
             <TextView
+                android:id="@+id/contactTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Select Contact"
@@ -74,89 +135,201 @@
             android:layout_marginTop="16dp" />
 
         <!-- Purpose Options -->
-        <RadioGroup
+        <!-- res/layout/activity_main.xml -->
+        <!-- In your activity_add_property.xml -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginVertical="8dp"
+            android:gravity="center">
+
+            <LinearLayout
+                android:id="@+id/saleOptionLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/gray"
+                android:orientation="vertical"
+                android:layout_marginEnd="8dp"
+                android:gravity="center">
+
+                <include layout="@layout/button_with_image" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/purchaseOptionLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@color/gray"
+                android:layout_marginEnd="8dp"
+                android:gravity="center">
+
+                <include layout="@layout/button_with_image" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tenantOptionLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/gray"
+                android:orientation="vertical"
+                android:layout_marginEnd="8dp"
+                android:gravity="center">
+
+                <include layout="@layout/button_with_image" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/rentOutOptionLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/gray"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <include layout="@layout/button_with_image" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <!-- Dropdown for Residential Plot -->
+        <Spinner
+            android:id="@+id/propertyTypeSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="15dp"
+
+            android:layout_marginVertical="8dp" />
+
+
+        <!-- Dropdown for Area (Marla) -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginVertical="8dp">
 
-            <RadioButton
-                android:id="@+id/saleOption"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/areaEditText"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Sale"
-                android:textSize="13sp"
+                android:layout_weight="1"
+                android:hint="Enter Area"
+                android:inputType="numberDecimal"
+                android:maxLength="7"
                 android:textColor="@android:color/black"
-                android:buttonTint="@color/rosepink"
-                android:background="?attr/selectableItemBackground" />
+                android:textColorHint="@android:color/darker_gray"
+                android:textSize="14sp"
+                android:padding="15dp"
+                android:backgroundTint="@color/rosepink"
+                /> <!-- Replace with your desired background -->
 
-            <RadioButton
-                android:id="@+id/purchaseOption"
-                android:layout_width="wrap_content"
+            <Spinner
+                android:id="@+id/unitSpinner"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Purchase"
-                android:textSize="13sp"
-                android:textColor="@android:color/black"
-                android:buttonTint="@color/rosepink"
-                android:layout_marginStart="8dp"
-                android:background="?attr/selectableItemBackground" />
+                android:layout_weight="1"
+                android:padding="8dp" />
+        </LinearLayout>
 
-            <RadioButton
-                android:id="@+id/tenantOption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tenant"
-                android:textSize="13sp"
-                android:textColor="@android:color/black"
-                android:buttonTint="@color/rosepink"
-                android:layout_marginStart="8dp"
-                android:background="?attr/selectableItemBackground" />
 
-            <RadioButton
-                android:id="@+id/rentOutOption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rent Out"
-                android:textSize="13sp"
-                android:textColor="@android:color/black"
-                android:buttonTint="@color/rosepink"
-                android:layout_marginStart="8dp"
-                android:background="?attr/selectableItemBackground" />
-        </RadioGroup>
 
-        <!-- Dropdown for Residential Plot -->
-        <TextView
-            android:id="@+id/propertyTypeLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Residential Plot"
-            android:textColor="@android:color/black"
-            android:textSize="14sp"
-            android:layout_marginTop="8dp" />
 
-        <Spinner
-            android:id="@+id/propertyTypeSpinner"
+        <LinearLayout
+            android:id="@+id/locationSelected"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/dropdown_background"
-            android:layout_marginVertical="8dp" />
+            android:visibility="gone"
+            android:orientation="horizontal"
+            android:padding="6dp"
 
-        <!-- Dropdown for Area (Marla) -->
-        <TextView
-            android:id="@+id/areaLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Area*"
-            android:textColor="@android:color/black"
-            android:textSize="14sp"
-            android:layout_marginTop="8dp" />
+            >
 
-        <Spinner
-            android:id="@+id/areaSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/dropdown_background"
-            android:layout_marginVertical="8dp" />
+            <ImageView
+                android:id="@+id/locationIcon"
+                android:layout_width="25dp"
+                android:layout_margin="6dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/compass"
+                android:contentDescription="contact"
+                app:tint="@color/rosepink"
+                android:layout_gravity="center_vertical"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/locationNameTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="20dp">
+
+                    <TextView
+                        android:id="@+id/stateTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="10sp"
+                        android:layout_margin="3dp"
+                        android:textColor="@android:color/darker_gray"/>
+
+                    <TextView
+                        android:id="@+id/cityTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="10sp"
+                        android:layout_margin="3dp"
+                        android:textColor="@android:color/darker_gray"/>
+
+                    <TextView
+                        android:id="@+id/countryTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="10sp"
+                        android:layout_margin="3dp"
+                        android:textColor="@android:color/darker_gray"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/btnMore"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginRight="4dp"
+                android:background="?attr/selectableItemBackground"
+                android:src="@drawable/menu"
+                app:tint="@color/black"
+                android:visibility="gone"
+                />
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
 
         <!-- Select Location Button -->
         <LinearLayout
@@ -180,7 +353,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Select Location"
-                android:textColor="#FF0078"
+                android:textColor="@color/rosepink"
                 android:textSize="16sp"
                 android:layout_marginStart="8dp" />
         </LinearLayout>
@@ -192,10 +365,12 @@
             android:layout_height="wrap_content"
             android:hint="Estimated Demand (Price) (Optional)"
             android:layout_marginTop="16dp"
+            android:backgroundTint="@color/rosepink"
+            android:textColor="@android:color/black"
             android:textColorHint="@android:color/darker_gray"
-           android:textColor="@color/black"
             android:textSize="14sp"
             app:tint="@color/rosepink"
+            android:inputType="numberDecimal"
             />
 
         <EditText
@@ -205,22 +380,49 @@
             android:hint="Note (Optional)"
             android:textColorHint="@android:color/darker_gray"
             android:textColor="@color/black"
+            android:backgroundTint="@color/rosepink"
             android:layout_marginTop="8dp"
             android:textSize="14sp"
              />
-
-        <TextView
+        <LinearLayout
             android:id="@+id/addressOptional"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:clickable="true"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="10dp"
             android:layout_marginTop="8dp"
-            android:text="Addess details (Optional)"
-            android:contextClickable="true"
+            android:clickable="true"
             android:focusable="true"
-            android:textSize="13sp"
-           />
+            >
+            <!-- Documents Section -->
+            <TextView
+                android:id="@+id/tvOptional"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="3dp"
+                android:text="Address Details (Optional)"
+                android:textSize="15dp"
+                android:textColor="@color/black"
+                android:layout_marginBottom="8dp"/>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+                <!-- ImageView for the calendar icon -->
+                <ImageView
+                    android:layout_width="33dp"
+                    android:layout_height="33dp"
+                    android:src="@drawable/downarrow"
+                    app:tint="@color/rosepink"
+                    android:padding="8dp"
+                    android:clickable="true"/>
+            </RelativeLayout>
+        </LinearLayout>
+
     <LinearLayout
         android:id="@+id/addressDetail"
         android:layout_width="match_parent"
@@ -235,6 +437,7 @@
             android:layout_height="wrap_content"
             android:hint="Complete Address (Optional)"
             android:layout_marginTop="16dp"
+            android:backgroundTint="@color/rosepink"
             android:textColorHint="@android:color/darker_gray"
             android:textSize="14sp"
             android:textColor="@color/black"
@@ -248,6 +451,7 @@
             android:hint="Plot No (Optional)"
             android:textColorHint="@android:color/darker_gray"
             android:layout_marginTop="8dp"
+            android:backgroundTint="@color/rosepink"
             android:textColor="@color/black"
             android:textSize="14sp"
             />
@@ -259,6 +463,7 @@
             android:layout_marginTop="16dp"
             android:textColorHint="@android:color/darker_gray"
             android:textSize="14sp"
+            android:backgroundTint="@color/rosepink"
             android:textColor="@color/black"
             app:tint="@color/rosepink"
             />
@@ -270,12 +475,13 @@
             android:hint="Phase (Optional)"
             android:textColorHint="@android:color/darker_gray"
             android:layout_marginTop="8dp"
+            android:backgroundTint="@color/rosepink"
             android:textColor="@color/black"
             android:textSize="14sp"
             />
     </LinearLayout>
         <LinearLayout
-            android:id="@+id/addnotes"
+            android:id="@+id/saveButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -302,9 +508,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:textSize="15sp"
+        android:textStyle="bold"
         android:paddingRight="10dp"
         android:textColor="@color/white"
-        android:text="Next" />
+        android:text="Save" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -317,7 +524,7 @@
         android:maxWidth="18dp"
         android:maxHeight="18dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/next"
+        android:src="@drawable/tick"
         app:tint="@color/white" />
 
 </LinearLayout>

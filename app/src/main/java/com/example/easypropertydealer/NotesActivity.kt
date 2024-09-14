@@ -3,27 +3,42 @@ package com.example.easypropertydealer
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ListView
+import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.easypropertydealer.RetrofitInstance.dealApi
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class NotesActivity : AppCompatActivity() {
+
+    private lateinit var notesTitle:TextView
+    private lateinit var listView:ListView
+    private var notes:List<Note> = emptyList()
+    private lateinit var progressBar: ProgressBar
+    private lateinit var noNoteText:TextView
+
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notes)
 
-        val db = MySQLiteHelper(this, "MyDataBase", null, 4)
-        val notes = db.getAllNotes() // Fetch all notes from the database
 
-        val notesTitle = findViewById<TextView>(R.id.notesTitle)
-        notesTitle.text = "Notes(${notes.size})"
+         notesTitle = findViewById(R.id.notesTitle)
+        progressBar=findViewById(R.id.progressBar)
+        noNoteText=findViewById(R.id.noNoteText)
+         listView = findViewById(R.id.notes_List)
 
-        val listView = findViewById<ListView>(R.id.notes_List)
-        val adapter = NoteAdapter(this, notes)
-        listView.adapter = adapter
+        noNoteText.visibility=View.GONE
+        progressBar.visibility=View.VISIBLE
+        fetchNotes()
 
         val back = findViewById<ImageView>(R.id.backButton)
         back.setOnClickListener {
@@ -38,21 +53,45 @@ class NotesActivity : AppCompatActivity() {
     }
     override fun onResume() {
         super.onResume()
-        updateNotesList()
+        fetchNotes()
+    }
+
+    public fun updateNotesList()
+    {
+        fetchNotes()
     }
 
 
-    // NotesActivity.kt
-    fun updateNotesList() {
-        val db = MySQLiteHelper(this, "MyDataBase", null, 4)
-        val notes = db.getAllNotes()
 
-        val notesTitle = findViewById<TextView>(R.id.notesTitle)
-        notesTitle.text = "Notes(${notes.size})"
+    private fun fetchNotes() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try
+            {
+                notes=RetrofitInstance.noteApi.getNotes()
+                withContext(Dispatchers.Main) {
+                    progressBar.visibility=View.GONE
+                    if (notes.isEmpty()) {
+                        noNoteText.visibility=View.VISIBLE
+                    } else {
+                        progressBar.visibility=View.GONE
+                        noNoteText.visibility = View.GONE
+                        val adapter = NoteAdapter(this@NotesActivity, notes)
+                        listView.adapter=adapter
+                        notesTitle.text = "Notes(${notes.size})"
+                    }
 
-        val listView = findViewById<ListView>(R.id.notes_List)
-        val adapter = NoteAdapter(this, notes)
-        listView.adapter = adapter
+                }
+            }
+            catch (e: Exception) {
+                e.printStackTrace()
+                withContext(Dispatchers.Main) {
+                    progressBar.visibility = View.GONE
+                    Toast.makeText(this@NotesActivity, "Failed to load notes", Toast.LENGTH_LONG)
+                        .show()
+                }
+            }
+        }
     }
+
 
 }

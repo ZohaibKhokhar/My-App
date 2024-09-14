@@ -1,0 +1,7 @@
+<resources>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Other attributes -->
+        <item name="android:statusBarColor">@android:color/white</item> <!-- Set the color to white -->
+        <item name="android:windowLightStatusBar">true</item> <!-- Ensures icons are dark for light background -->
+    </style>
+</resources>

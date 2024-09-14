@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ListView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -24,7 +25,9 @@ class ContactsActivity : AppCompatActivity() {
     private lateinit var tabAll: TextView
     private lateinit var tabDealer: TextView
     private lateinit var tabInvestor: TextView
+    private lateinit var progressBar: ProgressBar
     private var contacts: List<Contact> = emptyList()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +40,7 @@ class ContactsActivity : AppCompatActivity() {
         tabDealer = findViewById(R.id.tabDealer)
         tabInvestor = findViewById(R.id.tabInvestor)
         listView = findViewById(R.id.contactsList)
-
+        progressBar = findViewById(R.id.progressBar)
         // Back button
         val back = findViewById<ImageView>(R.id.backButton)
         back.setOnClickListener {
@@ -46,6 +49,8 @@ class ContactsActivity : AppCompatActivity() {
 
         // Fetch contacts
         fetchContacts { fetchedContacts ->
+            noContactsText.visibility= View.GONE
+            progressBar.visibility = View.VISIBLE
             contacts = fetchedContacts
             updateUI()
         }
@@ -94,6 +99,7 @@ class ContactsActivity : AppCompatActivity() {
                         noContactsText.visibility = View.VISIBLE
                     }
                     onResult(fetchedContacts)
+                    progressBar.visibility = View.GONE
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
@@ -101,6 +107,7 @@ class ContactsActivity : AppCompatActivity() {
                     onResult(emptyList()) // Return an empty list in case of an error
                 }
                 e.printStackTrace()
+                progressBar.visibility = View.GONE
             }
         }
     }
@@ -123,12 +130,15 @@ class ContactsActivity : AppCompatActivity() {
         tabAll.setTextColor(ContextCompat.getColor(this, R.color.darkgray))
         tabDealer.setTextColor(ContextCompat.getColor(this, R.color.darkgray))
         tabInvestor.setTextColor(ContextCompat.getColor(this, R.color.darkgray))
+        tabAll.text="All"
+        tabDealer.text="Dealer"
+        tabInvestor.text="Invester"
 
         // Set the selected tab's color and text
         selectedTab.setTextColor(ContextCompat.getColor(this, R.color.rosepink))
         selectedTab.text = newText
     }
-    // Function to update the contacts list
+
     fun updateContactsList() {
         fetchContacts { fetchedContacts ->
             contacts = fetchedContacts

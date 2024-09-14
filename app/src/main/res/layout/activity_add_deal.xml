@@ -1,0 +1,481 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:background="@android:color/white"
+    android:gravity="top">
+
+    <!-- Top AppBar with Title and Save Button -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Deal Form"
+            android:textSize="18sp"
+            android:padding="20dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_alignParentStart="true"/>
+
+        <LinearLayout
+            android:id="@+id/saveDeal"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/ripple_effect"
+            android:clickable="true"
+            android:padding="11dp"
+            android:layout_gravity="end"
+            android:backgroundTint="@color/rosepink"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:layout_marginEnd="16dp"
+                android:adjustViewBounds="true"
+                android:background="@color/rosepink"
+                android:maxHeight="13dp"
+                android:maxWidth="13dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/tick"
+                app:tint="@color/white" />
+
+            <TextView
+                android:id="@+id/tvSearchCaption"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textSize="12sp"
+                android:paddingRight="19dp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:text="Save" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/contactdata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:backgroundTint="@color/rosepink"
+        android:padding="5dp"
+        android:background="?attr/selectableItemBackground"
+        android:visibility="gone"
+        >
+
+        <ImageView
+            android:id="@+id/contactIcon"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/contact"
+            android:contentDescription="contact"
+            app:tint="@color/rosepink"
+            android:layout_gravity="center_vertical"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/rosepink"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/contactName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                />
+
+            <TextView
+                android:id="@+id/contactPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="11sp"
+                android:textColor="@android:color/darker_gray" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
+    <!--property data -->
+    <LinearLayout
+        android:id="@+id/propertydata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:padding="8dp">
+
+        <!-- ImageView at the start of each item -->
+        <ImageView
+            android:id="@+id/itemImage"
+            android:layout_width="32dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="Property Image"
+            app:tint="@color/rosepink"
+            android:src="@drawable/apartment" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:text="Property ID" />
+
+            <TextView
+                android:id="@+id/propertyType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="@android:color/darker_gray"
+                android:text="Property Type" />
+
+            <TextView
+                android:id="@+id/propertyArea"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="@android:color/darker_gray"
+                android:text="Property Area" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            >
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <!-- Select Property Button -->
+    <LinearLayout
+        android:id="@+id/selectPropertyButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:background="@drawable/border_layout"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        android:layout_marginVertical="8dp">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/apartment"
+            app:tint="@color/rosepink"
+            android:contentDescription="location" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Property"
+            android:textColor="@color/rosepink"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginStart="8dp" />
+    </LinearLayout>
+
+    <!-- Final Sale Price EditText -->
+    <EditText
+        android:id="@+id/salePrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="Final Sale Price*"
+        android:textSize="14sp"
+        android:backgroundTint="@color/rosepink"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/darker_gray"
+        android:inputType="numberDecimal" />
+
+    <!-- Horizontal layout for Last Date of Agreement -->
+    <LinearLayout
+        android:id="@+id/selectDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="16dp">
+
+        <!-- Last Date of Agreement TextView -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:textSize="15dp"
+            android:text="Last Date Of Agreement*"
+            android:textColor="@android:color/black"/>
+
+        <!-- RelativeLayout containing the Date Picker ImageView -->
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/agreementDate"
+                android:layout_marginEnd="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:background="@android:drawable/btn_default"
+                android:clickable="true"
+                android:padding="11dp"
+                android:layout_gravity="end"
+                android:backgroundTint="@color/rosepink"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginEnd="16dp"
+                    android:adjustViewBounds="true"
+                    android:background="@color/rosepink"
+                    android:maxWidth="44dp"
+                    android:maxHeight="32dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/date"
+                    app:tint="@color/white" />
+
+                <TextView
+                    android:id="@+id/dateSelected"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:paddingRight="19dp"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:text="Select Date " />
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+    <!--document layout-->
+    <LinearLayout
+        android:id="@+id/documentsDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="10dp"
+        android:clickable="true"
+        android:focusable="true"
+>
+        <!-- Documents Section -->
+        <TextView
+            android:id="@+id/doctext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:layout_weight="1"
+            android:text="Documents"
+            android:textSize="15dp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="8dp"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <!-- ImageView for the calendar icon -->
+            <ImageView
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:src="@drawable/downarrow"
+                app:tint="@color/rosepink"
+                android:padding="8dp"
+                android:clickable="true"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/document"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"> <!-- Initially hidden -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="10dp"
+        android:padding="8dp">
+
+        <!-- TextView for Documents -->
+        <TextView
+            android:id="@+id/tvDocuments"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Documents Transfered"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+        <!-- TextView for No -->
+        <TextView
+            android:id="@+id/tvNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:layout_marginEnd="8dp" />
+
+        <!-- Switch -->
+        <Switch
+            android:id="@+id/switchDocuments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:thumbTint="@color/color_switch_thumb"
+            android:trackTint="@color/color_switch_track"
+            android:layout_marginEnd="8dp" />
+
+        <!-- TextView for Yes -->
+        <TextView
+            android:id="@+id/tvYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yes"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+        <EditText
+            android:id="@+id/dealNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:hint="Note(Optional)"
+            android:paddingVertical="15dp"
+            android:textSize="14sp"
+            android:paddingBottom="15dp"
+            android:backgroundTint="@color/rosepink"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/darker_gray"
+            android:inputType="textPersonName" />
+
+    </LinearLayout>
+
+    <!-- Dealer Commission Section -->
+
+    <LinearLayout
+        android:id="@+id/commission"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        >
+        <!-- Documents Section -->
+        <TextView
+            android:id="@+id/tvCommision"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:layout_weight="1"
+            android:text="Dealer Commision (Optional)"
+            android:textSize="15dp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="8dp"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <!-- ImageView for the calendar icon -->
+            <ImageView
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:src="@drawable/downarrow"
+                app:tint="@color/rosepink"
+                android:padding="8dp"
+                android:clickable="true"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/commisionDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"> <!-- Initially hidden -->
+
+
+        <!-- Commission From Buyer -->
+    <EditText
+        android:id="@+id/commisionFromBuyer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Commision From buyer(Optional)"
+        android:textSize="14sp"
+        android:paddingBottom="15dp"
+        android:backgroundTint="@color/rosepink"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/darker_gray"
+        android:inputType="numberDecimal" />
+
+    <!-- Commission From Seller -->
+    <EditText
+        android:id="@+id/Commisionfromseller"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Commission From Seller (optional)"
+        android:textSize="14sp"
+        android:paddingBottom="15dp"
+        android:backgroundTint="@color/rosepink"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/darker_gray"
+        android:inputType="numberDecimal" />
+
+    </LinearLayout>
+
+</LinearLayout>

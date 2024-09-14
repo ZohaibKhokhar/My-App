@@ -14,9 +14,9 @@
             android:id="@+id/saveContact"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/btn_default"
+            android:background="@drawable/ripple_effect"
             android:clickable="true"
-            android:padding="16dp"
+            android:padding="11dp"
             android:layout_marginRight="10dp"
             android:layout_gravity="end"
             android:backgroundTint="@color/rosepink"
@@ -41,8 +41,9 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:textSize="11sp"
+                android:textSize="12sp"
                 android:paddingRight="30dp"
+                android:textStyle="bold"
                 android:textColor="@color/white"
                 android:gravity="center"
                 android:text="Save" />
@@ -73,7 +74,8 @@
                 android:layout_height="wrap_content"
                 android:text="Choose From Mobile Contacts"
                 android:textColor="@color/rosepink"
-                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textSize="15sp"
                 android:layout_marginStart="20dp" />
         </LinearLayout>
 
@@ -120,15 +122,44 @@
             android:inputType="textPostalAddress" />
 
         <!-- More Details Header -->
-        <TextView
-            android:id="@+id/tv_more_details"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/ll_more_details"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="More Details (Optional)"
-            android:textColor="@color/black"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="5dp"
             android:clickable="true"
-            android:focusable="true" />
+            android:focusable="true"
+            >
+            <!-- Documents Section -->
+            <TextView
+                android:id="@+id/tv_more_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:layout_weight="1"
+                android:text="More Details (Optional)"
+                android:textSize="15dp"
+                android:textColor="@color/black"
+                android:layout_marginBottom="8dp"/>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+                <!-- ImageView for the calendar icon -->
+                <ImageView
+                    android:layout_width="33dp"
+                    android:layout_height="33dp"
+                    android:src="@drawable/downarrow"
+                    app:tint="@color/rosepink"
+                    android:padding="8dp"
+                    android:clickable="true"/>
+            </RelativeLayout>
+        </LinearLayout>
+
 
         <!-- Details Container -->
         <LinearLayout
@@ -141,42 +172,95 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="10dp"
+                android:padding="8dp">
 
-                <!-- More Details Section -->
+                <!-- TextView for Documents -->
+                <TextView
+                    android:id="@+id/tvDealer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Dealer"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+                <!-- TextView for No -->
+                <TextView
+                    android:id="@+id/tvNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:layout_marginEnd="8dp" />
+
+                <!-- Switch -->
                 <Switch
                     android:id="@+id/switch_dealer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:foregroundTint="@android:color/black"
-                    android:buttonTint="@android:color/darker_gray"
-                    android:backgroundTint="@android:color/darker_gray"
-                    android:layout_gravity="end"
-                    android:layout_weight="1"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp"
-                    android:text="Dealer" />
-            </LinearLayout>
+                    android:thumbTint="@color/color_switch_thumb"
+                    android:trackTint="@color/color_switch_track"
+                    android:layout_marginEnd="8dp" />
 
+                <!-- TextView for Yes -->
+                <TextView
+                    android:id="@+id/tvYes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Yes"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="10dp"
+                android:padding="8dp">
 
-                <!-- More Details Section -->
-                <Switch
-                    android:id="@+id/switch_investor"
+                <!-- TextView for Documents -->
+                <TextView
+                    android:id="@+id/tvInvester"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Invester"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+                <!-- TextView for No -->
+                <TextView
+                    android:id="@+id/tvInvesterNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="No"
                     android:textColor="@android:color/black"
-                    android:layout_gravity="end"
-                    android:buttonTint="@android:color/black"
-                    android:backgroundTint="@android:color/black"
-                    android:layout_weight="1"
-                    android:textSize="14sp"
-                    android:text="Investor" />
-            </LinearLayout>
+                    android:textSize="16sp"
+                    android:layout_marginEnd="8dp" />
 
+                <!-- Switch -->
+                <Switch
+                    android:id="@+id/switch_invester"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:thumbTint="@color/color_switch_thumb"
+                    android:trackTint="@color/color_switch_track"
+                    android:layout_marginEnd="8dp" />
+
+                <!-- TextView for Yes -->
+                <TextView
+                    android:id="@+id/tvInverteryes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Yes"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+            </LinearLayout>
             <!-- Company Name Input -->
             <EditText
                 android:id="@+id/edit_text_company"

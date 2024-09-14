@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:padding="16dp">
+    android:padding="8dp">
 
     <!-- Back Button -->
     <ImageView
@@ -20,11 +20,12 @@
         android:id="@+id/searchButton"
         android:layout_width="24dp"
         android:layout_height="24dp"
+        android:visibility="gone"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:src="@drawable/search" />
 
-    <!-- Contacts Title -->
+    <!-- Reminders Title -->
     <TextView
         android:id="@+id/remindersTitle"
         android:layout_width="wrap_content"
@@ -33,60 +34,80 @@
         android:layout_marginTop="16dp"
         android:text="Reminders(0)"
         android:textColor="@android:color/black"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-    <!-- Tabs (All, Dealer, Investor) -->
+        android:textSize="21sp" />
+
+    <!-- Tabs (Upcoming, Expired) -->
     <LinearLayout
         android:id="@+id/tabs"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/remindersTitle"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:orientation="horizontal">
-        <!-- No Contact Available Text -->
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <!-- Upcoming Text -->
         <TextView
             android:id="@+id/upcoming"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:visibility="gone"
             android:layout_height="wrap_content"
-
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="32dp"
-            android:text="Up Coming"
+            android:layout_weight="1"
+            android:text="Upcoming"
             android:textColor="@android:color/darker_gray"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:gravity="center" />
 
-        <!-- No Contact Available Text -->
+        <!-- Expired Text -->
         <TextView
             android:id="@+id/expired"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-
-            android:layout_alignRight="@+id/upcoming"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="32dp"
+            android:layout_weight="1"
             android:text="Expired"
+            android:visibility="gone"
             android:textColor="@android:color/darker_gray"
-            android:textSize="16sp" />
-
+            android:textSize="16sp"
+            android:gravity="center" />
     </LinearLayout>
-    <!-- Add New Contact Button -->
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/tabs"
+        android:layout_marginTop="20dp"
+        android:visibility="gone" />
 
 
+    <!-- RecyclerView for displaying reminders -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/tabs"
+        android:layout_above="@id/addReminder"
+        android:layout_marginTop="16dp"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp" />
+
+    <!-- Add New Reminder Button -->
     <LinearLayout
-        android:id="@+id/addreminder"
+        android:id="@+id/addReminder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"
-        android:background="@android:drawable/btn_default"
-        android:gravity="end"
-        android:clickable="true"
-        android:padding="16dp"
         android:layout_gravity="end"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/ripple_effect"
         android:backgroundTint="@color/rosepink"
-        android:orientation="horizontal">
+        android:clickable="true"
+        android:gravity="end"
+        android:orientation="horizontal"
+        android:padding="12dp">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -96,8 +117,8 @@
             android:layout_marginEnd="16dp"
             android:adjustViewBounds="true"
             android:background="@color/rosepink"
-            android:maxHeight="18dp"
             android:maxWidth="18dp"
+            android:maxHeight="18dp"
             android:scaleType="fitCenter"
             android:src="@drawable/reminders"
             app:tint="@color/white" />
@@ -107,12 +128,12 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:textSize="15sp"
-            android:paddingRight="10dp"
-            android:textColor="@color/white"
             android:gravity="center"
-            android:text="Add New Reminder" />
+            android:textStyle="bold"
+            android:paddingRight="10dp"
+            android:text="Add New Reminder"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
     </LinearLayout>
-
 
 </RelativeLayout>

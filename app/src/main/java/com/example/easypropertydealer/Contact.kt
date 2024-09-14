@@ -1,5 +1,10 @@
 package com.example.easypropertydealer
 
+import android.os.Parcelable
+import androidx.versionedparcelable.ParcelField
+
+
+
 data class Contact(
     val id: Int,
     val name: String,
@@ -12,3 +17,4 @@ data class Contact(
     val email: String?,
     val website: String?
 )
+

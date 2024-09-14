@@ -21,6 +21,7 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_alignParentEnd="true"
+        android:visibility="gone"
         android:layout_alignParentTop="true"
         android:src="@drawable/search" />
 
@@ -33,7 +34,7 @@
         android:layout_marginTop="16dp"
         android:text="Locations(0)"
         android:textColor="@android:color/black"
-        android:textSize="24sp"
+        android:textSize="21sp"
      />
 
     <!-- No Contact Available Text -->
@@ -47,6 +48,17 @@
         android:text="No Locations Available"
         android:textColor="@android:color/darker_gray"
         android:textSize="16sp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/noLocationsText"
+        android:layout_marginTop="20dp"
+        android:visibility="gone" />
+
+
 
 
     <ListView
@@ -70,10 +82,10 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
-        android:background="@android:drawable/btn_default"
+        android:background="@drawable/ripple_effect"
         android:gravity="end"
         android:clickable="true"
-        android:padding="16dp"
+        android:padding="12dp"
         android:layout_gravity="end"
         android:backgroundTint="@color/rosepink"
         android:orientation="horizontal">
@@ -99,6 +111,7 @@
             android:layout_gravity="center_vertical"
             android:textSize="15sp"
             android:paddingRight="10dp"
+            android:textStyle="bold"
             android:textColor="@color/white"
             android:fontFamily="Roboto"
             android:gravity="center"
